@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from "mongoose";
 import authRoutes from "./routes/auth-route.js";
 import usersRoutes from "./routes/users-route.js";
+import productsRoutes from "./routes/products-route.js";
 import dotenv from "dotenv";
 
 const app = express();
@@ -17,6 +18,7 @@ mongoose.connect(MongoDBURL)
 app.use(express.json());
 app.use("/auth", authRoutes);
 app.use("/users", usersRoutes);
+app.use("/products", productsRoutes);
 
 app.listen(PORT, (err) => {
     if(err) {

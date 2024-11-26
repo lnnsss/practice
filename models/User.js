@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import e from "express";
 
 const UserSchema = new mongoose.Schema({
     email: {
