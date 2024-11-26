@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import authRoutes from "./routes/auth-route.js";
 import usersRoutes from "./routes/users-route.js";
 import productsRoutes from "./routes/products-route.js";
+import cartRoutes from "./routes/cart-route.js";
 import dotenv from "dotenv";
 
 const app = express();
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use("/auth", authRoutes);
 app.use("/users", usersRoutes);
 app.use("/products", productsRoutes);
+app.use("/carts", cartRoutes);
 
 app.listen(PORT, (err) => {
     if(err) {

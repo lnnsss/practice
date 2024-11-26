@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import UserModel from "../models/User.js";
+import CartModel from "../models/Cart.js";
 import {validationResult} from "express-validator";
 import dotenv from 'dotenv';
 
@@ -19,27 +20,32 @@ export const registration = async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(password, salt);
 
-        const doc = new UserModel({
+        const userDoc = new UserModel({
             email: req.body.email,
             passwordHash: hash,
         });
 
-        const user = await doc.save();
+        const user = await userDoc.save();
+
+        const newCart = await CartModel.create({ userId: user._id });
+
+        user.cartId = newCart._id;
+        await user.save();
 
         const token = jwt.sign({
             _id: user._id,
         }, secret, {
             expiresIn: '24h',
-        })
+        });
 
-        const {passwordHash, ...userData} = user._doc;
+        const { passwordHash, ...userData } = user._doc;
 
-        res.json({...userData, token});
+        res.json({ ...userData, token });
     } catch (err) {
         console.log(err);
         res.status(500).json({
             message: 'Не удалось зарегистрироваться',
-        })
+        });
     }
 };
 

@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
-const UserSchema = new mongoose.Schema({
+const UserSchema = new Schema({
     email: {
         type: String,
         required: true,
@@ -9,6 +9,10 @@ const UserSchema = new mongoose.Schema({
     passwordHash: {
         type: String,
         required: true,
+    },
+    cartId: {
+        type: Schema.Types.ObjectId,
+        ref: "Cart",
     }
 }, {
     timestamps: true,
