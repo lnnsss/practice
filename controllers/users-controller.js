@@ -15,7 +15,7 @@ export const getUsers = async (req, res) => {
     } catch(err) {
         console.log(err);
         res.status(500).json({
-            message: "gavno"
+            message: "Ошибка"
         })
     }
 };
@@ -28,7 +28,7 @@ export const getUserByID = async (req, res) => {
 
         if (!user) {
             return res.status(404).json({
-                message: 'Польщователь не найдены',
+                message: 'Пользователь не найден',
             })
         }
 
@@ -36,7 +36,7 @@ export const getUserByID = async (req, res) => {
     } catch(err) {
         console.log(err);
         res.status(500).json({
-            message: "gavno"
+            message: "Ошибка"
         })
     }
 };

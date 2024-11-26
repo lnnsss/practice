@@ -1,6 +1,11 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import UserModel from "../models/User.js";
+import {validationResult} from "express-validator";
+import dotenv from 'dotenv';
+
+dotenv.config();
+const secret = process.env.JWT_SECRET;
 
 // Регистрация
 export const registration = async (req, res) => {
@@ -16,8 +21,6 @@ export const registration = async (req, res) => {
 
         const doc = new UserModel({
             email: req.body.email,
-            fullName: req.body.fullName,
-            avatarUrl: req.body.avatarUrl,
             passwordHash: hash,
         });
 
@@ -25,7 +28,7 @@ export const registration = async (req, res) => {
 
         const token = jwt.sign({
             _id: user._id,
-        }, 'secret123', {
+        }, secret, {
             expiresIn: '24h',
         })
 
@@ -59,7 +62,7 @@ export const login = async (req, res) => {
 
         const token = jwt.sign({
             _id: user._id,
-        }, 'secret123', {
+        }, secret, {
             expiresIn: '24h',
         })
 

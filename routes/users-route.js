@@ -4,9 +4,9 @@ import { getUsers, getUserByID } from "../controllers/users-controller.js";
 const router = express.Router();
 
 // Получение всех пользователей
-router.post('/', getUsers);
+router.get('/', getUsers);
 
 // Получение одного пользователя по ID
-router.post('/:id', getUserByID);
+router.get('/:id', getUserByID);
 
 export default router;

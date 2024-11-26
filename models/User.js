@@ -2,10 +2,6 @@ import mongoose from "mongoose";
 import e from "express";
 
 const UserSchema = new mongoose.Schema({
-    fullName: {
-        type: String,
-        required: true,
-    },
     email: {
         type: String,
         required: true,
@@ -14,8 +10,7 @@ const UserSchema = new mongoose.Schema({
     passwordHash: {
         type: String,
         required: true,
-    },
-    avatarUrl: String
+    }
 }, {
     timestamps: true,
 })
