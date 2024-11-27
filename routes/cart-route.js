@@ -1,31 +1,31 @@
 import express from "express";
-import { addCart, addItemToCart, getCarts, getCart, getCartItems, updateCart, deleteCart, clearCart } from "../controllers/cart-controller.js";
+import CartController from "../controllers/cart-controller.js";
 
 const router = express.Router();
 
 // Создание одной корзины
-router.post("/", addCart);
+router.post("/", CartController.addCart);
 
 // Получение всех корзин
-router.get('/', getCarts)
+router.get('/', CartController.getCarts)
 
 // Получение одной корзины по ID
-router.get("/:id", getCart);
+router.get("/:id", CartController.getCart);
 
 // Получение товаров корзины по ID
-router.get('/:id/items', getCartItems);
+router.get('/:id/items', CartController.getCartItems);
 
 // Добавление товара в корзину по ID
-router.patch('/:id/items', addItemToCart);
+router.patch('/:id/items', CartController.addItemToCart);
 
 // Обновление одной корзины по ID
-router.patch("/:id", updateCart);
+router.patch("/:id", CartController.updateCart);
 
 // Удаление одной корзины по ID
-router.delete("/:id", deleteCart);
+router.delete("/:id", CartController.deleteCart);
 
 // Очистка корзины по ID
-router.delete('/:id/clear', clearCart);
+router.delete('/:id/clear', CartController.clearCart);
 
 
 export default router;
