@@ -1,12 +1,12 @@
 import express from "express";
-import { registration, login } from "../controllers/auth-controller.js";
+import AuthController from "../controllers/auth-controller.js";
 
 const router = express.Router();
 
 // Регистрация c валидацией
-router.post('/registration', registration);
+router.post('/registration', AuthController.registration);
 
 // Вход в аккаунт
-router.post('/login', login);
+router.post('/login', AuthController.login);
 
 export default router;
