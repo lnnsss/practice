@@ -4,6 +4,7 @@ import UserModel from "../models/User.js";
 import CartModel from "../models/Cart.js";
 import {validationResult} from "express-validator";
 import dotenv from 'dotenv';
+import { handleError } from "../handleError.js";
 
 dotenv.config();
 const secret = process.env.JWT_SECRET;
@@ -42,10 +43,7 @@ export default class AuthController {
     
             res.json({ ...userData, token });
         } catch (err) {
-            console.log(err);
-            res.status(500).json({
-                message: 'Не удалось зарегистрироваться',
-            });
+            handleError(err)
         }
     }
     static async login(req, res) {
@@ -74,11 +72,7 @@ export default class AuthController {
     
             res.json({...userData, token});
         } catch (err) {
-            console.log(err);
-            res.status(500).json({
-                message: 'Не удалось авторизоваться',
-            })
+            handleError(err)
         }
     }
-    
 }
