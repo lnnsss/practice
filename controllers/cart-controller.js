@@ -1,3 +1,4 @@
+import { handleError } from '../handleError.js';
 import CartModel from '../models/Cart.js';
 import ProductModel from '../models/Product.js';
 
@@ -8,10 +9,7 @@ export default class CartController {
     
             res.status(201).send(cart);
         } catch (err) {
-            console.log(err);
-            res.status(500).send({
-                message: err.message,
-            })
+            handleError(err)
         }
     }
     static async addItemToCart(req, res) {
@@ -40,10 +38,7 @@ export default class CartController {
             const updatedCart = await cart.save();
             res.status(200).json(updatedCart);
         } catch (err) {
-            console.error(err);
-            res.status(500).json({
-                message: err.message,
-            });
+            handleError(err)
         }
     }
     static async getCarts(req, res) {
@@ -57,10 +52,7 @@ export default class CartController {
     
             res.status(200).json(carts);
         } catch (err) {
-            console.error(err);
-            res.status(500).json({
-                message: err.message,
-            });
+            handleError(err)
         }
     }
     static async getCart(req, res) {
@@ -76,10 +68,7 @@ export default class CartController {
     
             res.status(200).json(cart);
         } catch (err) {
-            console.error(err);
-            res.status(500).json({
-                message: err.message,
-            });
+            handleError(err)
         }
     }
     static async getCartItems(req, res) {
@@ -97,10 +86,7 @@ export default class CartController {
     
             res.status(200).json(cartItems);
         } catch (err) {
-            console.error(err);
-            res.status(500).json({
-                message: err.message,
-            });
+            handleError(err)
         }
     }
     static async updateCart(req, res) {
@@ -111,10 +97,7 @@ export default class CartController {
     
             res.status(200).json(cart);
         } catch (err) {
-            console.error(err);
-            res.status(500).json({
-                message: err.message,
-            });
+            handleError(err)
         }
     }
     static async deleteCart(req, res) {
@@ -129,10 +112,7 @@ export default class CartController {
     
             res.status(200).json(cart);
         } catch (err) {
-            console.error(err);
-            res.status(500).json({
-                message: err.message,
-            });
+            handleError(err)
         }
     }
     static async clearCart(req, res) {
@@ -150,10 +130,7 @@ export default class CartController {
             const updatedCart = await cart.save();
             res.status(200).json(updatedCart);
         } catch (err) {
-            console.error(err);
-            res.status(500).json({
-                message: err.message,
-            });
+            handleError(err)
         }
     }
 }
