@@ -1,18 +1,18 @@
 import express from "express";
-import {getUsers, getUserByID, updateUserByID, deleteUserByID} from "../controllers/users-controller.js";
+import UserController from "../controllers/users-controller.js";
 
 const router = express.Router();
 
 // Получение всех пользователей
-router.get('/', getUsers);
+router.get('/', UserController.getUsers);
 
 // Получение одного пользователя по ID
-router.get('/:id', getUserByID);
+router.get('/:id', UserController.getUserByID);
 
 // Изменение одного пользователя по ID
-router.patch('/:id', updateUserByID);
+router.patch('/:id', UserController.updateUserByID);
 
 // Удаление одного пользователя по ID
-router.delete('/:id', deleteUserByID);
+router.delete('/:id', UserController.deleteUserByID);
 
 export default router;
