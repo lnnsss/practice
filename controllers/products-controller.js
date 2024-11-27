@@ -1,12 +1,17 @@
+import { handleError } from "../handleError.js";
 import ProductModel from "../models/Product.js";
 
 export default class ProductsController {
     static async createProduct(req, res) {
-        const doc = new ProductModel(req.body);
-    
-        const product = await doc.save();
-    
-        res.status(200).json(product);
+        try {
+            const doc = new ProductModel(req.body);
+        
+            const product = await doc.save();
+        
+            res.status(200).json(product);
+        } catch(err) {
+            handleError(err)
+        }
     }
     static async getProducts(req, res) {
         try {
@@ -20,10 +25,7 @@ export default class ProductsController {
     
             res.status(200).json(products);
         } catch(err) {
-            console.log(err);
-            res.status(500).json({
-                message: "Ошибка"
-            })
+            handleError(err)
         }
     }
     static async getProductByID(req, res) {
@@ -39,10 +41,7 @@ export default class ProductsController {
     
             res.status(200).json(product);
         } catch(err) {
-            console.log(err);
-            res.status(500).json({
-                message: "Ошибка"
-            })
+            handleError(err)
         }
     }
     static async updateProductByID(req, res) {
@@ -60,10 +59,7 @@ export default class ProductsController {
     
             res.status(200).json(product);
         } catch (err) {
-            console.log(err);
-            res.status(500).json({
-                message: "Не получилось удалить пользователя"
-            })
+            handleError(err)
         }
     }
     static async deleteProductByID(req, res) {
@@ -82,10 +78,7 @@ export default class ProductsController {
                 product
             })
         } catch (err) {
-            console.log(err);
-            res.status(500).json({
-                message: "Не получилось удалить товар"
-            })
+            handleError(err)
         }
     }
 }
