@@ -1,27 +1,21 @@
 import express from "express";
-import {
-    createProduct,
-    getProducts,
-    getProductByID,
-    updateProductByID,
-    deleteProductByID
-} from "../controllers/products-controller.js";
+import ProductsController from "../controllers/products-controller.js";
 
 const router = express.Router();
 
 // Добавление товара
-router.post('/', createProduct);
+router.post('/', ProductsController.createProduct);
 
 // Получение всех товаров
-router.get('/', getProducts);
+router.get('/', ProductsController.getProducts);
 
 // Получение одного товара по ID
-router.get('/:id', getProductByID);
+router.get('/:id', ProductsController.getProductByID);
 
 // Изменение одного товара по ID
-router.patch('/:id', updateProductByID);
+router.patch('/:id', ProductsController.updateProductByID);
 
 // Удаление одного товара по ID
-router.delete('/:id', deleteProductByID);
+router.delete('/:id', ProductsController.deleteProductByID);
 
 export default router;
