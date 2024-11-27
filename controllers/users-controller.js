@@ -1,3 +1,4 @@
+import { handleError } from "../handleError.js";
 import UserModel from "../models/User.js";
 
 export default class UserController {
@@ -13,10 +14,7 @@ export default class UserController {
     
             res.status(200).json(users);
         } catch(err) {
-            console.log(err);
-            res.status(500).json({
-                message: "Ошибка"
-            })
+            handleError(err)
         }
     }
     static async getUserByID(req, res) {
@@ -32,10 +30,7 @@ export default class UserController {
     
             res.status(200).json(user);
         } catch(err) {
-            console.log(err);
-            res.status(500).json({
-                message: "Ошибка"
-            })
+            handleError(err)
         }
     }
     static async updateUserByID(req, res) {
@@ -53,10 +48,7 @@ export default class UserController {
     
             res.status(200).json(user);
         } catch (err) {
-            console.log(err);
-            res.status(500).json({
-                message: "Не получилось удалить пользователя"
-            })
+            handleError(err)
         }
     }
     static async deleteUserByID(req, res) {
@@ -75,10 +67,7 @@ export default class UserController {
                 user
             })
         } catch (err) {
-            console.log(err);
-            res.status(500).json({
-                message: "Не получилось удалить пользователя"
-            })
+            handleError(err)
         }
     }
 }
