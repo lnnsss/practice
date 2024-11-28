@@ -6,7 +6,7 @@ const router = express.Router();
 // Добавление товара
 router.post('/', ProductsController.createProduct);
 
-// Получение всех товаров
+// Получение всех товаров или по query запросу
 router.get('/', ProductsController.getProducts);
 
 // Получение одного товара по ID

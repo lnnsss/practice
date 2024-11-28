@@ -6,7 +6,7 @@ const ProductSchema = new Schema({
         required: true,
     },
     artist: {
-        type: [String],
+        type: String,
         required: true,
     },
     price: {

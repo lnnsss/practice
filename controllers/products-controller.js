@@ -15,13 +15,21 @@ export default class ProductsController {
     }
     static async getProducts(req, res) {
         try {
-            const products = await ProductModel.find();
-    
-            if (!products) {
-                return res.status(404).json({
-                    message: 'Товары не найдены',
-                })
+            const artist = req.query.artist;
+
+            if (artist) {
+                const products = await ProductModel.find({artist: artist});
+
+                if (products.length === 0) {
+                    return res.status(404).json({
+                        message: 'Товары не найдены',
+                    })
+                }
+
+                return res.status(200).json(products);
             }
+
+            const products = await ProductModel.find();
     
             res.status(200).json(products);
         } catch(err) {
@@ -31,14 +39,14 @@ export default class ProductsController {
     static async getProductByID(req, res) {
         try {
             const id = req.params.id;
-            const product = await ProductModel.findOne({_id: id});
-    
+            const product = await ProductModel.findById(id);
+
             if (!product) {
                 return res.status(404).json({
                     message: 'Товар не найден',
                 })
             }
-    
+
             res.status(200).json(product);
         } catch(err) {
             handleError(err)
