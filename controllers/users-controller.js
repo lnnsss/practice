@@ -1,6 +1,10 @@
 import { handleError } from "../handleError.js";
 import UserModel from "../models/User.js";
+<<<<<<< Updated upstream
 import CartModel from "../models/Cart.js";
+=======
+import bcrypt from "bcryptjs";
+>>>>>>> Stashed changes
 
 export default class UserController {
     static async getUsers(req, res) {
@@ -42,9 +46,13 @@ export default class UserController {
     }
     static async updateUserByID(req, res) {
         try {
+            const password = req.body.password;
+            const salt = await bcrypt.genSalt(10);
+            const hash = await bcrypt.hash(password, salt);
+
             const id = req.params.id;
-            const updateData = req.body;
-    
+            const updateData = {...req.body, passwordHash: hash};
+
             const user = await UserModel.findByIdAndUpdate(id, updateData, { new: true });
     
             if (!user) {
