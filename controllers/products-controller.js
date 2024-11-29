@@ -15,25 +15,27 @@ export default class ProductsController {
     }
     static async getProducts(req, res) {
         try {
-            const artist = req.query.artist;
-
-            if (artist) {
-                const products = await ProductModel.find({artist: artist});
-
-                if (products.length === 0) {
-                    return res.status(404).json({
-                        message: 'Товары не найдены',
-                    })
-                }
-
-                return res.status(200).json(products);
-            }
-
-            const products = await ProductModel.find();
+            const { title, artist } = req.query;
+            const query = {};
     
-            res.status(200).json(products);
-        } catch(err) {
-            handleError(err)
+            if (artist) {
+                query.artist = artist;
+            }
+            if (title) {
+                query.title = title;
+            }
+    
+            const products = await ProductModel.find(query);
+    
+            if (products.length === 0) {
+                return res.status(404).json({
+                    message: 'Товары не найдены',
+                });
+            }
+    
+            return res.status(200).json(products);
+        } catch (err) {
+            handleError(err);
         }
     }
     static async getProductByID(req, res) {
