@@ -3,8 +3,16 @@ import ProductModel from "../models/Product.js";
 
 export default class ProductsController {
     static async createProduct(req, res) {
+        const { title, artist, price, imgURL } = req.body;
+
         try {
-            const doc = new ProductModel(req.body);
+            const newProduct = {
+                title,
+                artist,
+                price,
+                ...(imgURL && { imgURL })
+            }
+            const doc = new ProductModel(newProduct);
         
             const product = await doc.save();
         
