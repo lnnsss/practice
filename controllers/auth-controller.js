@@ -14,7 +14,10 @@ export default class AuthController {
         try {
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
-                return res.status(400).json(errors.array());
+                return res.status(400).json({
+                    message: "Ошибка регистрации",
+                    errors: errors.array()
+                });
             }
     
             const password = req.body.password;
@@ -41,7 +44,10 @@ export default class AuthController {
     
             const { passwordHash, ...userData } = user._doc;
     
-            res.json({ ...userData, token });
+            res.json({ 
+                message: "Успешная регистрация",
+                ...userData, 
+                token });
         } catch (err) {
             handleError(err)
         }
@@ -51,7 +57,7 @@ export default class AuthController {
             const user = await UserModel.findOne({email: req.body.email});
             if (!user) {
                 return res.status(404).json({
-                    message: 'Польщователь не найден',
+                    message: 'Пользователь не найден',
                 })
             }
     
@@ -70,7 +76,11 @@ export default class AuthController {
     
             const {passwordHash, ...userData} = user._doc;
     
-            res.json({...userData, token});
+            res.json({
+                message: "Успешный вход",
+                ...userData, 
+                token
+            });
         } catch (err) {
             handleError(err)
         }
