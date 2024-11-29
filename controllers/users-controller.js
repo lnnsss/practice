@@ -1,5 +1,6 @@
 import { handleError } from "../handleError.js";
 import UserModel from "../models/User.js";
+import CartModel from "../models/Cart.js";
 
 export default class UserController {
     static async getUsers(req, res) {
@@ -8,11 +9,14 @@ export default class UserController {
     
             if (!users) {
                 return res.status(404).json({
-                    message: 'Польщователи не найдены',
+                    message: 'Пользователи не найдены',
                 })
             }
     
-            res.status(200).json(users);
+            res.status(200).json({
+                message: "Пользователи найдены",
+                users
+            });
         } catch(err) {
             handleError(err)
         }
@@ -28,7 +32,10 @@ export default class UserController {
                 })
             }
     
-            res.status(200).json(user);
+            res.status(200).json({
+                message: "Пользователь найден",
+                user
+            });
         } catch(err) {
             handleError(err)
         }
@@ -46,7 +53,10 @@ export default class UserController {
                 });
             }
     
-            res.status(200).json(user);
+            res.status(200).json({
+                message: "Пользователь успешно изменен",
+                user
+            });
         } catch (err) {
             handleError(err)
         }
@@ -54,6 +64,7 @@ export default class UserController {
     static async deleteUserByID(req, res) {
         try {
             const id = req.params.id;
+    
             const user = await UserModel.findByIdAndDelete(id);
     
             if (!user) {
@@ -62,12 +73,14 @@ export default class UserController {
                 });
             }
     
+            await CartModel.deleteMany({ userId: id });
+    
             res.status(200).json({
-                message: "Пользователь успешно удалён",
+                message: "Пользователь и его корзина успешно удалены",
                 user
-            })
+            });
         } catch (err) {
-            handleError(err)
+            handleError(err);
         }
     }
 }
