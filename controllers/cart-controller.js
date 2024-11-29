@@ -7,7 +7,10 @@ export default class CartController {
         try {
             const cart = await CartModel.create(req.body);
     
-            res.status(201).send(cart);
+            res.status(201).send({
+                message: "Корзина создана",                
+                cart
+            });
         } catch (err) {
             handleError(err)
         }
@@ -36,7 +39,10 @@ export default class CartController {
             }
     
             const updatedCart = await cart.save();
-            res.status(200).json(updatedCart);
+            res.status(200).json({
+                message: "Корзина обновлена",
+                updatedCart
+            });
         } catch (err) {
             handleError(err)
         }
@@ -50,7 +56,10 @@ export default class CartController {
                 })
             }
     
-            res.status(200).json(carts);
+        res.status(200).json({
+            message: "Корзины получены",
+            carts
+        });
         } catch (err) {
             handleError(err)
         }
@@ -66,7 +75,10 @@ export default class CartController {
                 })
             }
     
-            res.status(200).json(cart);
+            res.status(200).json({
+                    message: "Корзина получена",
+                cart
+            });
         } catch (err) {
             handleError(err)
         }
@@ -84,7 +96,10 @@ export default class CartController {
     
             const cartItems = cart.items;
     
-            res.status(200).json(cartItems);
+            res.status(200).json({
+                message: "Получены товары из корзины",
+                cartItems
+            });
         } catch (err) {
             handleError(err)
         }
@@ -95,7 +110,10 @@ export default class CartController {
         try {
             const cart = await CartModel.findByIdAndUpdate(id, req.body, { new: true });
     
-            res.status(200).json(cart);
+            res.status(200).json({
+                message: "Корзина обновлена",
+                cart
+            });
         } catch (err) {
             handleError(err)
         }
@@ -110,7 +128,10 @@ export default class CartController {
                 return res.status(404).json({ message: "Корзина не найдена" });
             }
     
-            res.status(200).json(cart);
+            res.status(200).json({
+                message: "Корзина успешно удалена",
+                cart
+            });
         } catch (err) {
             handleError(err)
         }
@@ -128,7 +149,10 @@ export default class CartController {
             cart.items = [];
     
             const updatedCart = await cart.save();
-            res.status(200).json(updatedCart);
+            res.status(200).json({
+                message: "Товары корзины успешно удалены",
+                updatedCart
+            });
         } catch (err) {
             handleError(err)
         }
