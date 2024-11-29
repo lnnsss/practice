@@ -16,7 +16,10 @@ export default class ProductsController {
         
             const product = await doc.save();
         
-            res.status(200).json(product);
+            res.status(200).json({
+                message: "Товар успешно добавлен",
+                product
+            });
         } catch(err) {
             handleError(err)
         }
@@ -41,7 +44,10 @@ export default class ProductsController {
                 });
             }
     
-            return res.status(200).json(products);
+            return res.status(200).json({
+                message: "Товары найдены",
+                products
+            });
         } catch (err) {
             handleError(err);
         }
@@ -57,7 +63,10 @@ export default class ProductsController {
                 })
             }
 
-            res.status(200).json(product);
+            res.status(200).json({
+                message: "Товар найден",
+                product
+            });
         } catch(err) {
             handleError(err)
         }
@@ -75,7 +84,10 @@ export default class ProductsController {
                 });
             }
     
-            res.status(200).json(product);
+            res.status(200).json({
+                message: "Товар успешно изменен",
+                product
+            });
         } catch (err) {
             handleError(err)
         }
