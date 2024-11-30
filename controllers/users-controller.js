@@ -44,11 +44,16 @@ export default class UserController {
     static async updateUserByID(req, res) {
         try {
             const password = req.body.password;
-            const salt = await bcrypt.genSalt(10);
-            const hash = await bcrypt.hash(password, salt);
-
             const id = req.params.id;
-            const updateData = {...req.body, passwordHash: hash};
+            let updateData;
+
+            if (password) {
+                const salt = await bcrypt.genSalt(10);
+                const hash = await bcrypt.hash(password, salt);
+                updateData = {...req.body, passwordHash: hash};
+            } else {
+                updateData = {...req.body};
+            }
 
             const user = await UserModel.findByIdAndUpdate(id, updateData, { new: true });
     
