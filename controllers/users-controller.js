@@ -1,10 +1,7 @@
 import { handleError } from "../handleError.js";
 import UserModel from "../models/User.js";
-<<<<<<< Updated upstream
 import CartModel from "../models/Cart.js";
-=======
 import bcrypt from "bcryptjs";
->>>>>>> Stashed changes
 
 export default class UserController {
     static async getUsers(req, res) {
