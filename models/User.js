@@ -13,6 +13,10 @@ const UserSchema = new Schema({
     cartId: {
         type: Schema.Types.ObjectId,
         ref: "Cart",
+    },
+    role: {
+        type: String,
+        default: "USER",
     }
 }, {
     timestamps: true,
