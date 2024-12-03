@@ -7,7 +7,7 @@ export default class CartController {
         try {
             const cart = await CartModel.create(req.body);
     
-            res.status(201).send({
+            res.status(201).json({
                 message: "Корзина создана",                
                 cart
             });
