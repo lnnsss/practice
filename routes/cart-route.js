@@ -25,7 +25,7 @@ router.patch("/:id", CartController.updateCart);
 router.delete("/:id", CartController.deleteCart);
 
 // Очистка корзины по ID
-router.delete('/:id/clear', CartController.clearCart);
+router.delete('/:id/items', CartController.clearCart);
 
 
 export default router;
